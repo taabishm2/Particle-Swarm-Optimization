@@ -3,7 +3,7 @@
 from __future__ import division
 import random
 import math
-
+from matplotlib import pyplot as plt
 #--- COST FUNCTION ------------------------------------------------------------+
 
 # function we are attempting to optimize (minimize)
@@ -62,7 +62,7 @@ class Particle:
             # adjust minimum position if neseccary
             if self.position_i[i] < bounds[i][0]:
                 self.position_i[i]=bounds[i][0]
-                
+
 class PSO():
     def __init__(self,costFunc,x0,bounds,num_particles,maxiter):
         global num_dimensions
@@ -82,6 +82,7 @@ class PSO():
             #print i,err_best_g
             # cycle through particles in swarm and evaluate fitness
             for j in range(0,num_particles):
+                plt.scatter(swarm[j].position_i,0)
                 swarm[j].evaluate(costFunc)
 
                 # determine if current particle is the best (globally)
@@ -96,6 +97,7 @@ class PSO():
             i+=1
 
         # print final results
+        plt.show()
         print('FINAL:')
         print(pos_best_g)
         print(err_best_g)
